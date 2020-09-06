@@ -1,0 +1,33 @@
+{
+  "name": "eqemu-tsc",
+  "version": "1.0.0",
+  "description": "TypeScript definition files for EQEmu quest scripting.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KimLS/eqemu-tsc.git"
+  },
+  "keywords": [
+    "eqemu",
+	"quest",
+    "typescript",
+	"lua",
+	"types"
+  ],
+  "author": "KimLS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KimLS/eqemu-tsc/issues"
+  },
+  "homepage": "https://github.com/KimLS/eqemu-tsc#readme",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "lua-types": "^2.8.0",
+    "tslib": "^2.0.1"
+  }
+}

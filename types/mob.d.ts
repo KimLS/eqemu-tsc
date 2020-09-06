@@ -1,0 +1,335 @@
+declare interface AttackOptions
+{
+
+}
+
+declare interface QuestSayOptions
+{
+
+}
+
+declare interface IllusionOptions
+{
+
+}
+
+declare class Lua_Mob extends Lua_Entity 
+{
+    constructor();
+    GetName() : string;
+    GetName() : string;
+    Depop() : void;
+    Depop(start_spawn_timer : boolean) : void;
+    BehindMob(other? : Lua_Mob, x? : number, y? : number) : boolean;
+    SetLevel(level : number, command? : boolean) : void;
+    SendWearChange(material_slot : number) : void;
+    IsMoving() : boolean;
+    IsFeared() : boolean;
+    IsBlind() : boolean;
+    GotoBind() : void;
+    Gate() : void;
+    Attack(other : Lua_Mob, hand? : number, from_riposte? : boolean, is_strikethrough? : boolean, 
+        is_from_spell? : boolean, opts? : AttackOptions) : boolean;
+    Damage(from : Lua_Mob, damage : number, spell_id : number, attack_skill : number, avoidable? : boolean, 
+        buffslot? : number, buff_tic? : boolean) : void;
+    RangedAttack(other : Lua_Mob) : void;
+    ThrowingAttack(other : Lua_Mob) : void;
+    Heal() : void;
+    HealDamage(amount : number, other? : Lua_Mob) : void;
+    GetLevelCon(other : number) : number;
+    GetLevelCon(my : number, other : number) : number;
+    SetHP(hp : number) : void;
+    DoAnim(anim_num : number, type? : number, ackreq? : boolean, filter? : number) : void;
+    ChangeSize(in_size : number, no_restriction? : boolean) : void;
+    RandomizeFeatures(send_illusion : boolean, save_variables : boolean) : void;
+    GMMove(x : number, y : number, z : number, heading? : number, send_update? : boolean) : void;
+    TryMoveAlong(distance : number, heading : number, send : boolean) : void;
+    HasProcs() : boolean;
+    IsInvisible() : boolean;
+    IsInvisible(other : Lua_Mob) : boolean;
+    SetInvisible(state : number) : void;
+    FindBuff(spell_id : number) : boolean;
+    FindBuffBySlot(slot : number) : number;
+    BuffCount() : number;
+    FindType(type : number, offensive? : boolean, threshold? : number) : boolean;
+    GetBuffSlotFromType(slot : number) : number;
+    GetBaseRace() : number;
+    GetBaseGender() : number;
+    GetDeity() : number;
+    GetRace() : number;
+    GetGender() : number;
+    GetTexture() : number;
+    GetHelmTexture() : number;
+    GetHairColor() : number;
+    GetBeardColor() : number;
+    GetEyeColor1() : number;
+    GetEyeColor2() : number;
+    GetHairStyle() : number;
+    GetLuclinFace() : number;
+    GetBeard() : number;
+    GetDrakkinHeritage() : number;
+    GetDrakknumberattoo() : number;
+    GetDrakkinDetails() : number;
+    GetClass() : number;
+    GetLevel() : number;
+    GetCleanName() : string;
+    GetTarget() : Lua_Mob;
+    SetTarget(t : Lua_Mob) : void;
+    GetHPRatio() : number;
+    IsWarriorClass() : boolean;
+    GetHP() : number;
+    GetMaxHP() : number;
+    GetItemHPBonuses() : number;
+    GetSpellHPBonuses() : number;
+    GetWalkspeed() : number;
+    GetRunspeed() : number;
+    GetCasterLevel(spell_id : number) : number;
+    GetMaxMana() : number;
+    GetMana() : number;
+    SetMana(mana : number) : number;
+    GetManaRatio() : number;
+    GetAC() : number;
+    GetDisplayAC() : number;
+    GetATK() : number;
+    GetSTR() : number;
+    GetSTA() : number;
+    GetDEX() : number;
+    GetAGI() : number;
+    GetInt() : number;
+    GetWIS() : number;
+    GetCHA() : number;
+    GetMR() : number;
+    GetFR() : number;
+    GetDR() : number;
+    GetPR() : number;
+    GetCR() : number;
+    GetCorruption() : number;
+    GetPhR() : number;
+    GetMaxSTR() : number;
+    GetMaxSTA() : number;
+    GetMaxDEX() : number;
+    GetMaxAGI() : number;
+    GetMaxInt() : number;
+    GetMaxWIS() : number;
+    GetMaxCHA() : number;
+    ResistSpell(resist_type : number, spell_id : number, caster : Lua_Mob, use_resist_override? : boolean, 
+        resist_override? : number, charisma_check? : boolean) : number;
+    GetSpecializeSkillValue(spell_id : number) : number;
+    GetNPCTypeID() : number;
+    IsTargeted() : boolean;
+    GetX() : number;
+    GetY() : number;
+    GetZ() : number;
+    GetHeading() : number;
+    GetWaypointX() : number;
+    GetWaypointY() : number;
+    GetWaypointZ() : number;
+    GetWaypointH() : number;
+    GetWaypointPause() : number;
+    GetWaypointID() : number;
+    SetCurrentWP(wp : number) : void;
+    GetSize() : number;
+    Message(type : number, message : string) : void;
+    MessageString(type : number, string_id : number, distance : number) : void;
+    Say(message : string, language? : number) : void;
+    QuestSay(client : Lua_Client, message : string, opts? : QuestSayOptions) : void;
+    Shout(message : string) : void;
+    Shout(message : string, language : number) : void;
+    Emote(message : string) : void;
+    InterruptSpell(spell_id? : number) : void;
+    CastSpell(spell_id : number, target_id : number, slot? : number, cast_time? : number, mana_cost? : 
+        number, item_slot? : number, timer? : number, timer_duration? : number, resist_adjust? : number) : boolean;
+    SpellFinished(spell_id : number, target : Lua_Mob, slot? : number, mana_used? : number, inventory_slot? : number, 
+        resist_adjust? : number, proc? : boolean) : boolean;
+    SendBeginCast(spell_id : number, cast_time : number) : void;
+    SpellEffect(caster : Lua_Mob, spell_id : number, partial : number) : void;
+    GetPet() : Lua_Mob;
+    GetOwner() : Lua_Mob;
+    GetHateList() : Lua_HateList;
+    GetHateTop() : Lua_Mob;
+    GetHateDamageTop(other : Lua_Mob) : Lua_Mob;
+    GetHateRandom() : Lua_Mob;
+    AddToHateList(other : Lua_Mob, hate? : number, damage? : number, yell_for_help? : boolean, frenzy? : 
+        boolean, buff_tic? : boolean) : void;
+    SetHate(other : Lua_Mob, hate? : number, damage? : number) : void;
+    HalveAggro(other : Lua_Mob) : void;
+    DoubleAggro(other : Lua_Mob) : void;
+    GetHateAmount(target : Lua_Mob, is_damage? : boolean) : number;
+    GetDamageAmount(target : Lua_Mob) : number;
+    WipeHateList() : void;
+    CheckAggro(other : Lua_Mob) : boolean;
+    Stun(duration : number) : void;
+    UnStun() : void;
+    IsStunned() : boolean;
+    Spin() : void;
+    Kill() : void;
+    CanThisClassDoubleAttack() : boolean;
+    CanThisClassDualWield() : boolean;
+    CanThisClassRiposte() : boolean;
+    CanThisClassDodge() : boolean;
+    CanThisClassParry() : boolean;
+    CanThisClassBlock() : boolean;
+    SetInvul(value : boolean) : void;
+    GetInvul() : boolean;
+    SetExtraHaste(haste : number) : void;
+    GetHaste() : number;
+    GetHandToHandDamage() : number;
+    GetHandToHandDelay() : number;
+    Mesmerize() : void;
+    IsMezzed() : boolean;
+    IsEnraged() : boolean;
+    GetReverseFactionCon(other : Lua_Mob) : number;
+    IsAIControlled() : boolean;
+    GetAggroRange() : number;
+    GetAssistRange() : number;
+    SetPetOrder(order : number) : void;
+    GetPetOrder() : number;
+    IsRoamer() : boolean;
+    IsRooted() : boolean;
+    IsEngaged() : boolean;
+    FaceTarget(target : Lua_Mob) : void;
+    SetHeading(in_h : number) : void;
+    CalculateHeadingToTarget(in_x : number, in_y : number) : number;
+    RunTo(x : number, y : number, z : number) : void;
+    WalkTo(x : number, y : number, z : number) : void;
+    NavigateTo(x : number, y : number, z : number) : void;
+    StopNavigation() : void;
+    CalculateDistance(x : number, y : number, z : number) : number;
+    SendTo(x : number, y : number, z : number) : void;
+    SendToFixZ(x : number, y : number, z : number) : void;
+    NPCSpecialAttacks(parse : string, perm : number, reset? : boolean, remove? : boolean) : void;
+    GetResist(type : number) : number;
+    Charmed() : boolean;
+    CheckAggroAmount(spell_id : number, is_proc? : boolean) : number;
+    CheckHealAggroAmount(spell_id : number, heal_possible? : number) : number;
+    GetAA(id : number) : number;
+    GetAAByAAID(id : number) : number;
+    SetAA(rank_id : number, new_value : number, charges? : number) : boolean;
+    DivineAura() : boolean;
+    SetOOCRegen(regen : number) : void;
+    GetEntityVariable(name : string) : string;
+    SetEntityVariable(name : string, value : string) : void;
+    EntityVariableExists(name : string) : boolean;
+    Signal(id : number) : void;
+    CombatRange(other : Lua_Mob) : boolean;
+    DoSpecialAttackDamage(other : Lua_Mob, skill : number, max_damage : number, min_damage? : number, 
+        hate_override? : number, reuse_time? : number) : void;
+    DoThrowingAttackDmg(other : Lua_Mob, range_weapon? : Lua_ItemInst, item? : Lua_Item, 
+        weapon_damage? : number, chance_mod? : number, focus? : number) : void;
+    DoMeleeSkillAttackDmg(other : Lua_Mob, weapon_damage : number, skill : number, chance_mod? : number, 
+        focus? : number, can_riposte? : boolean) : void;
+    DoArcheryAttackDmg(other : Lua_Mob, range_weapon? : Lua_ItemInst, ammo? : Lua_ItemInst, 
+        weapon_damage? : number, chance_mod? : number, focus? : number) : void;
+    CheckLoS(other : Lua_Mob) : boolean;
+    CheckLoSToLoc(x : number, y : number, z : number, mob_size? : number) : boolean;
+    FindGroundZ(x : number, y : number, z? : number) : number;
+    ProjectileAnimation(to : Lua_Mob, item_id : number, is_arrow? : boolean, speed? : number, 
+        angle? : number, tilt? : number, arc? : number) : void;
+    HasNPCSpecialAtk(parse : string) : boolean;
+    SendAppearanceEffect(parm1 : number, parm2 : number, parm3 : number, parm4 : number, parm5 : number, 
+        specific_target? : Lua_Client) : void;
+    SetFlyMode(val : number) : void;
+    SetTexture(val : number) : void;
+    SetRace(val : number) : void;
+    SetGender(val : number) : void;
+    SendIllusionPacket(illusion : IllusionOptions) : void;
+    ChangeRace(val : number) : void;
+    ChangeGender(val : number) : void;
+    ChangeTexture(val : number) : void;
+    ChangeHelmTexture(val : number) : void;
+    ChangeHairColor(val : number) : void;
+    ChangeBeardColor(val : number) : void;
+    ChangeEyeColor1(val : number) : void;
+    ChangeEyeColor2(val : number) : void;
+    ChangeHairStyle(val : number) : void;
+    ChangeLuclinFace(val : number) : void;
+    ChangeBeard(val : number) : void;
+    ChangeDrakkinHeritage(val : number) : void;
+    ChangeDrakknumberattoo(val : number) : void;
+    ChangeDrakkinDetails(val : number) : void;
+    CameraEffect(duration : number, numberensity : number, c? : Lua_Client, global? : boolean) : void;
+    SendSpellEffect(effect_id : number, duration : number, finish_delay : number, zone_wide : boolean,
+        unk020 : number, perm_effect? : boolean, c? : Lua_Client) : void;
+    TempName(newname? : string) : void;
+    GetGlobal(varname : string) : string ;
+    SetGlobal(varname : string, newvalue : string, options : number, duration : string, other? : Lua_Mob) : void;
+    TarGlobal(varname : string, value : string, duration : string, npc_id : number, char_id : number, 
+        zone_id : number) : void;
+    DelGlobal(varname : string) : void;
+    SetSlotTint(material_slot : number, red_tint : number, green_tint : number, blue_tint : number) : void;
+    WearChange(material_slot : number, texture : number, color : number) : void;
+    DoKnockback(caster : Lua_Mob, pushback : number, pushup : number) : void;
+    AddNimbusEffect(effect_id : number) : void;
+    RemoveNimbusEffect(effect_id : number) : void;
+    IsRunning() : boolean;
+    SetRunning(running : boolean) : void;
+    SetBodyType(new_body : number, overwrite_orig : boolean) : void;
+    SetTargetable(on : boolean) : void;
+    ModSkillDmgTaken(skill : number, value : number) : void;
+    GetModSkillDmgTaken(skill : number) : number;
+    GetSkillDmgTaken(skill : number) : number;
+    GetFcDamageAmtIncoming(caster : Lua_Mob, spell_id : number, use_skill : boolean, skill : number) : number;
+    GetSkillDmgAmt(skill : number) : number;
+    SetAllowBeneficial(value : boolean) : void;
+    GetAllowBeneficial() : boolean;
+    IsBeneficialAllowed(target : Lua_Mob) : boolean;
+    ModVulnerability(resist : number, value : number) : void;
+    GetModVulnerability(resist : number) : number;
+    SetDisableMelee(disable : boolean) : void;
+    IsMeleeDisabled() : boolean;
+    SetFlurryChance(value : number) : void;
+    GetFlurryChance() : number;
+    GetSkill(skill_id : number) : number;
+    GetSpecialAbility(ability : number) : number;
+    GetSpecialAbilityParam(ability : number, param : number) : number;
+    SetSpecialAbility(ability : number, level : number) : void;
+    SetSpecialAbilityParam(ability : number, param : number, value : number) : void;
+    ClearSpecialAbilities() : void;
+    ProcessSpecialAbilities(val : string) : void;
+    GetAppearance() : number;
+    SetAppearance(app : number, ignore_self? : boolean) : void;
+    SetDestructibleObject(set : boolean) : void;
+    IsImmuneToSpell(spell_id : number, caster : Lua_Mob) : boolean;
+    BuffFadeBySpellID(spell_id : number) : void;
+    BuffFadeByEffect(effect_id : number, skipslot? : number) : void;
+    BuffFadeAll() : void;
+    BuffFadeBySlot(slot : number, recalc_bonuses? : boolean) : void;
+    CanBuffStack(spell_id : number, caster_level : number, fail_if_overwrite? : boolean) : number;
+    SetPseudoRoot(val : boolean) : void;
+    SeeInvisible() : number;
+    SeeInvisibleUndead() : boolean;
+    SeeHide() : boolean;
+    SeeImprovedHide() : boolean;
+    GetNimbusEffect1() : number;
+    GetNimbusEffect2() : number;
+    GetNimbusEffect3() : number;
+    IsTargetable() : boolean;
+    HasShieldEquiped() : boolean;
+    HasTwoHandBluntEquiped() : boolean;
+    HasTwoHanderEquipped() : boolean;
+    GetHerosForgeModel(material_slot : number) : number;
+    IsEliteMaterialItem(material_slot : number) : number;
+    GetBaseSize() : number;
+    HasOwner() : boolean;
+    IsPet() : boolean;
+    HasPet() : boolean;
+    IsSilenced() : boolean;
+    IsAmnesiad() : boolean;
+    GetMeleeMitigation() : number;
+    GetWeaponDamageBonus(weapon : Lua_Item, offhand : boolean) : number;
+    GetItemStat(itemid : number, identifier : string) : number;
+    GetItemBonuses() : Lua_StatBonuses;
+    GetSpellBonuses() : Lua_StatBonuses;
+    GetAABonuses() : Lua_StatBonuses;
+    GetMeleeDamageMod_SE(skill : number) : number;
+    GetMeleeMinDamageMod_SE(skill : number) : number;
+    IsAttackAllowed(target : Lua_Mob, isSpellAttack : boolean) : boolean;
+    IsCasting() : boolean;
+    AttackAnimation(Hand : number, weapon : Lua_ItemInst) : number;
+    GetWeaponDamage(against : Lua_Mob, weapon : Lua_ItemInst) : number;
+    IsBerserk() : boolean;
+    TryFinishingBlow(defender : Lua_Mob, damage : number) : boolean;
+    GetBodyType() : number;
+    GetOrigBodyType() : number;
+    CheckNumHitsRemaining(type : number, buff_slot : number, spell_id : number) : void;
+}

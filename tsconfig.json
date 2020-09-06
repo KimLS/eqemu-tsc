@@ -1,0 +1,8 @@
+{
+  "files": ["index.d.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+	"strict": true
+  }
+}
