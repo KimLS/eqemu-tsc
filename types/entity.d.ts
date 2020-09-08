@@ -1,4 +1,4 @@
-declare class Lua_Entity
+declare class Entity
 {
     constructor();
     null : boolean;
@@ -16,11 +16,11 @@ declare class Lua_Entity
     IsBeacon() : boolean;
     IsEncounter() : boolean;
     IsBot() : boolean;
-    GetId() : number;
-    CastToClient() : Lua_Client;
-    CastToNPC() : Lua_Entity;
-    CastToMob() : Lua_Mob;
-    CastToCorpse() : Lua_Entity;
-    CastToObject() : Lua_Entity;
-    CastToDoor() : Lua_Entity;
+    GetID() : number;
+    CastToClient() : Client;
+    CastToNPC() : NPC;
+    CastToMob() : Mob;
+    CastToCorpse() : Corpse;
+    CastToObject() : Object;
+    CastToDoor() : Door;
 }

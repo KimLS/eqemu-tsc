@@ -1,0 +1,40 @@
+declare class GroundObject extends Entity
+{
+    constructor();
+    null : boolean;
+    valid : boolean;
+    Depop() : void;
+    Repop() : void;
+    SetModelName(name : string) : void;
+    GetModelName() : string;
+    GetX() : number;
+    GetY() : number;
+    GetZ() : number;
+    GetHeading() : number;
+    SetX(x : number) : void;
+    SetY(y : number) : void;
+    SetZ(z : number) : void;
+    SetHeading(h : number) : void;
+    SetLocation(x : number, y : number, z : number) : void;
+    SetItemID(item_id : number) : void;
+    GetItemID() : number;
+    SetIcon(icon : number) : void;
+    GetIcon() : number;
+    SetType(type : number) : void;
+    GetType() : number;
+    GetDBID() : number;
+    ClearUser() : void;
+    SetID(user : number) : void;
+    GetID() : number;
+    Save() : boolean;
+    VarSave() : number;
+    DeleteItem(index : number) : void;
+    StartDecay() : void;
+    Delete() : void;
+    Delete(reset_state : boolean) : void;
+    IsGroundSpawn() : boolean;
+    Close() : void;
+    GetEntityVariable(name : string) : string;
+    SetEntityVariable(name : string, value : string) : void;
+    EntityVariableExists(name : string) : boolean;
+}

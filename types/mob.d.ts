@@ -1,41 +1,65 @@
 declare interface AttackOptions
 {
-
+    armor_pen_flat : number;
+    crit_flat : number;
+    damage_flat : number;
+    hate_flat : number;
+    armor_pen_percent : number;
+    crit_percent : number;
+    damage_percent : number;
+    hate_percent : number;
 }
 
 declare interface QuestSayOptions
 {
-
+    speak_mode : number;
+    journal_mode : number;
+    language : number;
+    message_type : number;
 }
 
-declare interface IllusionOptions
+declare interface Illusion
 {
-
+    race : number;
+    gender : number;
+    texture : number;
+    helmtexture : number;
+    haircolor : number;
+    beardcolor : number;
+    eyecolor1 : number;
+    eyecolor2 : number;
+    hairstyle : number;
+    luclinface : number;
+    beard : number;
+    aa_title : number;
+    drakkin_heritage : number;
+    drakkin_tattoo : number;
+    drakkin_details : number;
+    size : number;
 }
 
-declare class Lua_Mob extends Lua_Entity 
+declare class Mob extends Entity
 {
     constructor();
+    null : boolean;
+    valid : boolean;
     GetName() : string;
-    GetName() : string;
-    Depop() : void;
-    Depop(start_spawn_timer : boolean) : void;
-    BehindMob(other? : Lua_Mob, x? : number, y? : number) : boolean;
-    SetLevel(level : number, command? : boolean) : void;
+    Depop(start_spawn_timer? : boolean) : void;
+    BehindMob(other? : Mob, x? : number, y? : number) : boolean;
+    SetLevel(level : number) : void;
+    SetLevel(level : number, command : boolean) : void;
     SendWearChange(material_slot : number) : void;
     IsMoving() : boolean;
     IsFeared() : boolean;
     IsBlind() : boolean;
     GotoBind() : void;
     Gate() : void;
-    Attack(other : Lua_Mob, hand? : number, from_riposte? : boolean, is_strikethrough? : boolean, 
-        is_from_spell? : boolean, opts? : AttackOptions) : boolean;
-    Damage(from : Lua_Mob, damage : number, spell_id : number, attack_skill : number, avoidable? : boolean, 
-        buffslot? : number, buff_tic? : boolean) : void;
-    RangedAttack(other : Lua_Mob) : void;
-    ThrowingAttack(other : Lua_Mob) : void;
+    Attack(other : Mob, hand? : number, from_riposte? : boolean, is_strikethrough? : boolean, is_from_spell? : boolean, opts? : AttackOptions) : boolean;
+    Damage(from : Mob, damage : number, spell_id : number, attack_skill : number, avoidable? : boolean, buffslot? : number, buff_tic? : boolean) : void;
+    RangedAttack(other : Mob) : void;
+    ThrowingAttack(other : Mob) : void;
     Heal() : void;
-    HealDamage(amount : number, other? : Lua_Mob) : void;
+    HealDamage(amount : number, other? : Mob) : void;
     GetLevelCon(other : number) : number;
     GetLevelCon(my : number, other : number) : number;
     SetHP(hp : number) : void;
@@ -43,10 +67,10 @@ declare class Lua_Mob extends Lua_Entity
     ChangeSize(in_size : number, no_restriction? : boolean) : void;
     RandomizeFeatures(send_illusion : boolean, save_variables : boolean) : void;
     GMMove(x : number, y : number, z : number, heading? : number, send_update? : boolean) : void;
-    TryMoveAlong(distance : number, heading : number, send : boolean) : void;
+    TryMoveAlong(distance : number, heading : number, send? : boolean) : void;
     HasProcs() : boolean;
     IsInvisible() : boolean;
-    IsInvisible(other : Lua_Mob) : boolean;
+    IsInvisible(other : Mob) : boolean;
     SetInvisible(state : number) : void;
     FindBuff(spell_id : number) : boolean;
     FindBuffBySlot(slot : number) : number;
@@ -68,13 +92,13 @@ declare class Lua_Mob extends Lua_Entity
     GetLuclinFace() : number;
     GetBeard() : number;
     GetDrakkinHeritage() : number;
-    GetDrakknumberattoo() : number;
+    GetDrakkinTattoo() : number;
     GetDrakkinDetails() : number;
     GetClass() : number;
     GetLevel() : number;
     GetCleanName() : string;
-    GetTarget() : Lua_Mob;
-    SetTarget(t : Lua_Mob) : void;
+    GetTarget() : Mob;
+    SetTarget(t : Mob) : void;
     GetHPRatio() : number;
     IsWarriorClass() : boolean;
     GetHP() : number;
@@ -95,7 +119,7 @@ declare class Lua_Mob extends Lua_Entity
     GetSTA() : number;
     GetDEX() : number;
     GetAGI() : number;
-    GetInt() : number;
+    GetINT() : number;
     GetWIS() : number;
     GetCHA() : number;
     GetMR() : number;
@@ -109,11 +133,10 @@ declare class Lua_Mob extends Lua_Entity
     GetMaxSTA() : number;
     GetMaxDEX() : number;
     GetMaxAGI() : number;
-    GetMaxInt() : number;
+    GetMaxINT() : number;
     GetMaxWIS() : number;
     GetMaxCHA() : number;
-    ResistSpell(resist_type : number, spell_id : number, caster : Lua_Mob, use_resist_override? : boolean, 
-        resist_override? : number, charisma_check? : boolean) : number;
+    ResistSpell(resist_type : number, spell_id : number, caster : Mob, use_resist_override? : boolean, resist_override? : number, charisma_check? : boolean) : number;
     GetSpecializeSkillValue(spell_id : number) : number;
     GetNPCTypeID() : number;
     IsTargeted() : boolean;
@@ -131,39 +154,37 @@ declare class Lua_Mob extends Lua_Entity
     GetSize() : number;
     Message(type : number, message : string) : void;
     MessageString(type : number, string_id : number, distance : number) : void;
-    Say(message : string, language? : number) : void;
-    QuestSay(client : Lua_Client, message : string, opts? : QuestSayOptions) : void;
-    Shout(message : string) : void;
-    Shout(message : string, language : number) : void;
+    Say(message : string) : void;
+    Say(message : string, language : number) : void;
+    QuestSay(client : Client, message : string, opts? : QuestSayOptions) : void;
+    Shout(message : string, language? : number) : void;
     Emote(message : string) : void;
-    InterruptSpell(spell_id? : number) : void;
-    CastSpell(spell_id : number, target_id : number, slot? : number, cast_time? : number, mana_cost? : 
-        number, item_slot? : number, timer? : number, timer_duration? : number, resist_adjust? : number) : boolean;
-    SpellFinished(spell_id : number, target : Lua_Mob, slot? : number, mana_used? : number, inventory_slot? : number, 
-        resist_adjust? : number, proc? : boolean) : boolean;
+    InterruptSpell() : void;
+    InterruptSpell(spell_id : number) : void;
+    CastSpell(spell_id : number, target_id : number, slot? : number, cast_time? : number, mana_cost? : number, item_slot? : number, timer? : number, timer_duration? : number, resist_adjust? : number) : boolean;
+    SpellFinished(spell_id : number, target : Mob, slot? : number, mana_used? : number, inventory_slot? : number, resist_adjust? : number, proc? : boolean) : boolean;
     SendBeginCast(spell_id : number, cast_time : number) : void;
-    SpellEffect(caster : Lua_Mob, spell_id : number, partial : number) : void;
-    GetPet() : Lua_Mob;
-    GetOwner() : Lua_Mob;
-    GetHateList() : Lua_HateList;
-    GetHateTop() : Lua_Mob;
-    GetHateDamageTop(other : Lua_Mob) : Lua_Mob;
-    GetHateRandom() : Lua_Mob;
-    AddToHateList(other : Lua_Mob, hate? : number, damage? : number, yell_for_help? : boolean, frenzy? : 
-        boolean, buff_tic? : boolean) : void;
-    SetHate(other : Lua_Mob, hate? : number, damage? : number) : void;
-    HalveAggro(other : Lua_Mob) : void;
-    DoubleAggro(other : Lua_Mob) : void;
-    GetHateAmount(target : Lua_Mob, is_damage? : boolean) : number;
-    GetDamageAmount(target : Lua_Mob) : number;
+    SpellEffect(caster : Mob, spell_id : number, partial : number) : void;
+    GetPet() : Mob;
+    GetOwner() : Mob;
+    GetHateList() : HateList;
+    GetHateTop() : Mob;
+    GetHateDamageTop(other : Mob) : Mob;
+    GetHateRandom() : Mob;
+    AddToHateList(other : Mob, hate? : number, damage? : number, yell_for_help? : boolean, frenzy? : boolean, buff_tic? : boolean) : void;
+    SetHate(other : Mob, hate? : number, damage? : number) : void;
+    HalveAggro(other : Mob) : void;
+    numberAggro(other : Mob) : void;
+    GetHateAmount(target : Mob, is_damage? : boolean) : number;
+    GetDamageAmount(target : Mob) : number;
     WipeHateList() : void;
-    CheckAggro(other : Lua_Mob) : boolean;
+    CheckAggro(other : Mob) : boolean;
     Stun(duration : number) : void;
     UnStun() : void;
     IsStunned() : boolean;
     Spin() : void;
     Kill() : void;
-    CanThisClassDoubleAttack() : boolean;
+    CanThisClassnumberAttack() : boolean;
     CanThisClassDualWield() : boolean;
     CanThisClassRiposte() : boolean;
     CanThisClassDodge() : boolean;
@@ -178,7 +199,7 @@ declare class Lua_Mob extends Lua_Entity
     Mesmerize() : void;
     IsMezzed() : boolean;
     IsEnraged() : boolean;
-    GetReverseFactionCon(other : Lua_Mob) : number;
+    GetReverseFactionCon(other : Mob) : number;
     IsAIControlled() : boolean;
     GetAggroRange() : number;
     GetAssistRange() : number;
@@ -187,8 +208,8 @@ declare class Lua_Mob extends Lua_Entity
     IsRoamer() : boolean;
     IsRooted() : boolean;
     IsEngaged() : boolean;
-    FaceTarget(target : Lua_Mob) : void;
-    SetHeading(in_h : number) : void;
+    FaceTarget(target : Mob) : void;
+    SetHeading(val : number) : void;
     CalculateHeadingToTarget(in_x : number, in_y : number) : number;
     RunTo(x : number, y : number, z : number) : void;
     WalkTo(x : number, y : number, z : number) : void;
@@ -204,35 +225,30 @@ declare class Lua_Mob extends Lua_Entity
     CheckHealAggroAmount(spell_id : number, heal_possible? : number) : number;
     GetAA(id : number) : number;
     GetAAByAAID(id : number) : number;
-    SetAA(rank_id : number, new_value : number, charges? : number) : boolean;
+    SetAA(rank_id : number, new_value : number) : boolean;
+    SetAA(rank_id : number, new_value : number, charges : number) : boolean;
     DivineAura() : boolean;
     SetOOCRegen(regen : number) : void;
     GetEntityVariable(name : string) : string;
     SetEntityVariable(name : string, value : string) : void;
     EntityVariableExists(name : string) : boolean;
     Signal(id : number) : void;
-    CombatRange(other : Lua_Mob) : boolean;
-    DoSpecialAttackDamage(other : Lua_Mob, skill : number, max_damage : number, min_damage? : number, 
-        hate_override? : number, reuse_time? : number) : void;
-    DoThrowingAttackDmg(other : Lua_Mob, range_weapon? : Lua_ItemInst, item? : Lua_Item, 
-        weapon_damage? : number, chance_mod? : number, focus? : number) : void;
-    DoMeleeSkillAttackDmg(other : Lua_Mob, weapon_damage : number, skill : number, chance_mod? : number, 
-        focus? : number, can_riposte? : boolean) : void;
-    DoArcheryAttackDmg(other : Lua_Mob, range_weapon? : Lua_ItemInst, ammo? : Lua_ItemInst, 
-        weapon_damage? : number, chance_mod? : number, focus? : number) : void;
-    CheckLoS(other : Lua_Mob) : boolean;
+    CombatRange(other : Mob) : boolean;
+    DoSpecialAttackDamage(other : Mob, skill : number, max_damage : number, min_damage? : number, hate_override? : number, reuse_time? : number) : void;
+    DoThrowingAttackDmg(other : Mob, range_weapon? : ItemInst, item? : Item, weapon_damage? : number, chance_mod? : number, focus? : number) : void;
+    DoMeleeSkillAttackDmg(other : Mob, weapon_damage : number, skill : number, chance_mod? : number, focus? : number, can_riposte? : boolean) : void;
+    DoArcheryAttackDmg(other : Mob, range_weapon? : ItemInst, ammo? : ItemInst, weapon_damage? : number, chance_mod? : number, focus? : number) : void;
+    CheckLoS(other : Mob) : boolean;
     CheckLoSToLoc(x : number, y : number, z : number, mob_size? : number) : boolean;
     FindGroundZ(x : number, y : number, z? : number) : number;
-    ProjectileAnimation(to : Lua_Mob, item_id : number, is_arrow? : boolean, speed? : number, 
-        angle? : number, tilt? : number, arc? : number) : void;
+    ProjectileAnimation(to : Mob, item_id : number, is_arrow? : boolean, speed? : number, angle? : number, tilt? : number, arc? : number) : void;
     HasNPCSpecialAtk(parse : string) : boolean;
-    SendAppearanceEffect(parm1 : number, parm2 : number, parm3 : number, parm4 : number, parm5 : number, 
-        specific_target? : Lua_Client) : void;
+    SendAppearanceEffect(parm1 : number, parm2 : number, parm3 : number, parm4 : number, parm5 : number, specific_target? : Client) : void;
     SetFlyMode(val : number) : void;
     SetTexture(val : number) : void;
     SetRace(val : number) : void;
     SetGender(val : number) : void;
-    SendIllusionPacket(illusion : IllusionOptions) : void;
+    SendIllusionPacket(illusion : Illusion) : void;
     ChangeRace(val : number) : void;
     ChangeGender(val : number) : void;
     ChangeTexture(val : number) : void;
@@ -245,20 +261,18 @@ declare class Lua_Mob extends Lua_Entity
     ChangeLuclinFace(val : number) : void;
     ChangeBeard(val : number) : void;
     ChangeDrakkinHeritage(val : number) : void;
-    ChangeDrakknumberattoo(val : number) : void;
+    ChangeDrakkinTattoo(val : number) : void;
     ChangeDrakkinDetails(val : number) : void;
-    CameraEffect(duration : number, numberensity : number, c? : Lua_Client, global? : boolean) : void;
-    SendSpellEffect(effect_id : number, duration : number, finish_delay : number, zone_wide : boolean,
-        unk020 : number, perm_effect? : boolean, c? : Lua_Client) : void;
+    CameraEffect(duration : number, intensity : number, c? : Client, global? : boolean) : void;
+    SendSpellEffect(effect_id : number, duration : number, finish_delay : number, zone_wide : boolean, unk020 : number, perm_effect? : boolean, c? : Client) : void;
     TempName(newname? : string) : void;
-    GetGlobal(varname : string) : string ;
-    SetGlobal(varname : string, newvalue : string, options : number, duration : string, other? : Lua_Mob) : void;
-    TarGlobal(varname : string, value : string, duration : string, npc_id : number, char_id : number, 
-        zone_id : number) : void;
+    GetGlobal(varname : string) : string;
+    SetGlobal(varname : string, newvalue : string, options : number, duration : string, other? : Mob) : void;
+    TarGlobal(varname : string, value : string, duration : string, npc_id : number, char_id : number, zone_id : number) : void;
     DelGlobal(varname : string) : void;
     SetSlotTint(material_slot : number, red_tint : number, green_tint : number, blue_tint : number) : void;
     WearChange(material_slot : number, texture : number, color : number) : void;
-    DoKnockback(caster : Lua_Mob, pushback : number, pushup : number) : void;
+    DoKnockback(caster : Mob, pushback : number, pushup : number) : void;
     AddNimbusEffect(effect_id : number) : void;
     RemoveNimbusEffect(effect_id : number) : void;
     IsRunning() : boolean;
@@ -268,11 +282,11 @@ declare class Lua_Mob extends Lua_Entity
     ModSkillDmgTaken(skill : number, value : number) : void;
     GetModSkillDmgTaken(skill : number) : number;
     GetSkillDmgTaken(skill : number) : number;
-    GetFcDamageAmtIncoming(caster : Lua_Mob, spell_id : number, use_skill : boolean, skill : number) : number;
+    GetFcDamageAmtIncoming(caster : Mob, spell_id : number, use_skill : boolean, skill : number) : number;
     GetSkillDmgAmt(skill : number) : number;
     SetAllowBeneficial(value : boolean) : void;
     GetAllowBeneficial() : boolean;
-    IsBeneficialAllowed(target : Lua_Mob) : boolean;
+    IsBeneficialAllowed(target : Mob) : boolean;
     ModVulnerability(resist : number, value : number) : void;
     GetModVulnerability(resist : number) : number;
     SetDisableMelee(disable : boolean) : void;
@@ -285,11 +299,12 @@ declare class Lua_Mob extends Lua_Entity
     SetSpecialAbility(ability : number, level : number) : void;
     SetSpecialAbilityParam(ability : number, param : number, value : number) : void;
     ClearSpecialAbilities() : void;
-    ProcessSpecialAbilities(val : string) : void;
+    ProcessSpecialAbilities(str : string) : void;
+    SetAppearance(app : number) : void;
     GetAppearance() : number;
-    SetAppearance(app : number, ignore_self? : boolean) : void;
+    SetAppearance(app : number, ignore_self : boolean) : void;
     SetDestructibleObject(set : boolean) : void;
-    IsImmuneToSpell(spell_id : number, caster : Lua_Mob) : boolean;
+    IsImmuneToSpell(spell_id : number, caster : Mob) : boolean;
     BuffFadeBySpellID(spell_id : number) : void;
     BuffFadeByEffect(effect_id : number, skipslot? : number) : void;
     BuffFadeAll() : void;
@@ -316,20 +331,69 @@ declare class Lua_Mob extends Lua_Entity
     IsSilenced() : boolean;
     IsAmnesiad() : boolean;
     GetMeleeMitigation() : number;
-    GetWeaponDamageBonus(weapon : Lua_Item, offhand : boolean) : number;
+    GetWeaponDamageBonus(weapon : Item, offhand : boolean) : number;
     GetItemStat(itemid : number, identifier : string) : number;
-    GetItemBonuses() : Lua_StatBonuses;
-    GetSpellBonuses() : Lua_StatBonuses;
-    GetAABonuses() : Lua_StatBonuses;
+    GetItemBonuses() : StatBonuses;
+    GetSpellBonuses() : StatBonuses;
+    GetAABonuses() : StatBonuses;
     GetMeleeDamageMod_SE(skill : number) : number;
     GetMeleeMinDamageMod_SE(skill : number) : number;
-    IsAttackAllowed(target : Lua_Mob, isSpellAttack : boolean) : boolean;
+    IsAttackAllowed(target : Mob, isSpellAttack : boolean) : boolean;
     IsCasting() : boolean;
-    AttackAnimation(Hand : number, weapon : Lua_ItemInst) : number;
-    GetWeaponDamage(against : Lua_Mob, weapon : Lua_ItemInst) : number;
+    AttackAnimation(Hand : number, weapon : ItemInst) : number;
+    GetWeaponDamage(against : Mob, weapon : ItemInst) : number;
     IsBerserk() : boolean;
-    TryFinishingBlow(defender : Lua_Mob, damage : number) : boolean;
+    TryFinishingBlow(defender : Mob, damage : number) : boolean;
     GetBodyType() : number;
     GetOrigBodyType() : number;
     CheckNumHitsRemaining(type : number, buff_slot : number, spell_id : number) : void;
+}
+
+declare namespace SpecialAbility 
+{
+    const summon : number;
+    const enrage : number;
+    const rampage : number;
+    const area_rampage : number;
+    const flurry : number;
+    const triple_attack : number;
+    const quad_attack : number;
+    const innate_dual_wield : number;
+    const bane_attack : number;
+    const magical_attack : number;
+    const ranged_attack : number;
+    const unslowable : number;
+    const unmezable : number;
+    const uncharmable : number;
+    const unstunable : number;
+    const unsnareable : number;
+    const unfearable : number;
+    const undispellable : number;
+    const immune_melee : number;
+    const immune_magic : number;
+    const immune_fleeing : number;
+    const immune_melee_except_bane : number;
+    const immune_melee_except_magical : number;
+    const immune_aggro : number;
+    const immune_aggro_on : number;
+    const immune_casting_from_range : number;
+    const immune_feign_death : number;
+    const immune_taunt : number;
+    const tunnelvision : number;
+    const dont_buff_friends : number;
+    const immune_pacify : number;
+    const leash : number;
+    const tether : number;
+    const destructible_object : number;
+    const no_harm_from_client : number;
+    const always_flee : number;
+    const flee_percent : number;
+    const allow_beneficial : number;
+    const disable_melee : number;
+    const npc_chase_distance : number;
+    const allow_to_tank : number;
+    const ignore_root_aggro_rules : number;
+    const casting_resist_diff : number;
+    const counter_avoid_damage : number;
+    const immune_ranged_attacks : number;
 }

@@ -1,4 +1,49 @@
-declare class Lua_ItemInst
+declare class ItemInst 
 {
-    
+    constructor(item_id? : number, charges? : number);
+    null : boolean;
+    valid : boolean;
+    IsType(item_class : number) : boolean;
+    IsStackable() : boolean;
+    IsEquipable(race : number, class_ : number) : boolean;
+    IsEquipable(slot_id : number) : boolean;
+    IsAugmentable() : boolean;
+    GetAugmentType() : number;
+    IsExpendable() : boolean;
+    GetItem(slot : number) : ItemInst;
+    GetItem() : Item;
+    SetItem(item : Item) : void;
+    GetUnscaledItem(slot : number) : Item;
+    GetItemID(slot : number) : number;
+    GetTotalItemCount() : number;
+    GetAugment(slot : number) : ItemInst;
+    GetAugmentItemID(slot : number) : number;
+    IsAugmented() : boolean;
+    IsWeapon() : boolean;
+    IsAmmo() : boolean;
+    GetID() : number;
+    GetItemScriptID() : number;
+    GetCharges() : number;
+    SetCharges(charges : number) : void;
+    GetPrice() : number;
+    SetPrice(price : number) : void;
+    SetColor(color : number) : void;
+    GetColor() : number;
+    IsInstNoDrop() : boolean;
+    SetInstNoDrop(flag : boolean) : void;
+    GetCustomDataString() : string;
+    SetCustomData(identifier : string, value : number|boolean|string) : void;
+    GetCustomData(identifier : string) : string;
+    DeleteCustomData(identifier : string) : void;
+    SetScaling(v : boolean) : void;
+    SetScale(scale_factor : number) : void;
+    GetExp() : number;
+    SetExp(exp : number) : void;
+    AddExp(exp : number) : void;
+    GetMaxEvolveLvl() : number;
+    GetKillsNeeded(current_level : number) : number;
+    Clone() : ItemInst;
+    SetTimer(name : string, time : number) : void;
+    StopTimer(name : string) : void;
+    ClearTimers() : void;
 }
